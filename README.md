@@ -1,83 +1,83 @@
-# Attendance Monitoring System
+# Attendance Monitoring System (IoT + Software)
 
-A web-based Attendance Monitoring System built using Python (Flask) and MySQL. It allows for role-based login, attendance management by teachers, and a simple dashboard to monitor attendance activity.
+This is a hybrid IoT-based Attendance Monitoring System that uses hardware motion sensors with Arduino and software logging on a PC to automatically detect and log presence events in real time.
 
-## 🚀 Features
+## 🎯 Features
 
-- Role-based login system: Admin, Teacher, Student
-- Admin can add teachers and students
-- Teachers can take attendance for their classes
-- Attendance records stored in a MySQL database
-- Basic HTML templates for frontend using Flask’s templating engine
-- Responsive dashboard for viewing attendance
-- Notifications and alerts for attendance thresholds (extendable)
+- PIR sensor-based motion detection with Arduino Uno
+- Serial communication between Arduino and PC via USB
+- Python script to log occupancy data locally
+- Visual (LED) and audio (buzzer) feedback on motion detection
+- Easily extendable for classroom, office, or lab attendance systems
 
-## 🗂 Project Structure
+## 🛠 Technologies Used
+
+- **Arduino Uno** (C++ for microcontroller logic)
+- **PIR Motion Sensor**, LED, Buzzer
+- **Python 3** for logging and software integration
+- **PySerial** for serial communication with Arduino
+
+## 📁 Project Structure
 
 ```
 Attendance-Monitoring-System/
-├── static/                      # CSS and JavaScript files
-├── templates/                   # HTML templates for each page
-├── db.sql                       # MySQL schema and sample data
-├── app.py                       # Main Flask application
-├── requirements.txt             # Python dependencies
-└── README.md                    # Project documentation
+├── arduino_code.cpp               # C++ code to run on Arduino
+├── pc_side_logging_software.py   # Python script to receive and log attendance data
+├── requirements.txt              # Python dependencies (e.g., pyserial)
+└── README.md                     # Project documentation
 ```
 
-## 💻 Technologies Used
+## 🔌 Hardware Components Required
 
-- Python 3
-- Flask
-- MySQL
-- HTML/CSS (Bootstrap)
-- mysql-connector-python
+- Arduino Uno
+- PIR Motion Sensor
+- 1 LED
+- 1 Buzzer
+- Breadboard and jumper wires
+- USB cable (for Arduino-PC communication)
 
-## 📦 Installation
+## 🧠 How It Works
 
-1. **Clone the repository**
-```bash
-git clone https://github.com/manasdarak10/Attendance-Monitoring-System.git
-cd Attendance-Monitoring-System
-```
+1. The PIR sensor detects motion.
+2. If motion is detected:
+   - The Arduino turns on the LED and triggers the buzzer.
+   - It sends a message (e.g., "Motion Detected") to the PC via serial.
+3. The Python script (`pc_side_logging_software.py`) running on the PC listens to the serial port and logs the data to the console or a file.
 
-2. **Install required Python packages**
+## ✅ Setup Instructions
+
+### 1. Arduino Side
+- Upload `arduino_code.cpp` to your Arduino using the Arduino IDE.
+- Connect PIR sensor output to a digital pin (as defined in the code).
+- Connect LED and Buzzer to appropriate digital pins.
+
+### 2. Python Logging Software (PC Side)
+- Make sure you have Python 3 installed.
+- Install required packages:
 ```bash
 pip install -r requirements.txt
 ```
-
-3. **Set up MySQL database**
-- Open MySQL and create a database:
-```sql
-CREATE DATABASE attendance_db;
-```
-- Import the provided SQL file:
+- Run the script:
 ```bash
-mysql -u your_username -p attendance_db < db.sql
+python pc_side_logging_software.py
+```
+- Adjust the COM port in the script as per your system.
+
+## 📄 requirements.txt
+
+```txt
+pyserial>=3.4
 ```
 
-4. **Configure your DB credentials in `app.py`**
-```python
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'your_username'
-app.config['MYSQL_PASSWORD'] = 'your_password'
-app.config['MYSQL_DB'] = 'attendance_db'
-```
+## 💡 Future Enhancements
 
-5. **Run the application**
-```bash
-python app.py
-```
-- Open your browser and go to: `http://localhost:5000`
+- Log data to CSV or database
+- Add real-time dashboard (e.g., using Flask)
+- Use RFID for individual identification
+- Automate report generation
+- Add timestamps for attendance tracking
 
-## 📈 Future Improvements
-
-- Add biometric or RFID integration for automatic check-ins
-- Enable attendance export in CSV/PDF format
-- Add notifications via SMS or email for absentees
-- Implement analytics and reporting dashboards
-- Enhance UI using a modern frontend framework (React, Vue)
-
-## 🙋 Author
+## 👨‍💻 Author
 
 **Manas Darak**  
 GitHub: [https://github.com/manasdarak10](https://github.com/manasdarak10)
